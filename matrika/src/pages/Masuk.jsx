@@ -31,7 +31,7 @@ function Panel() {
           ))}
         </ul>
       </div>
-      <p className="text-xs text-white/60">Prototipe untuk lampiran esai. Data dan AI disimulasikan.</p>
+      <div />
     </div>
   )
 }
@@ -68,6 +68,8 @@ const Catatan = () => (
   </p>
 )
 
+const Petunjuk = ({ id, children }) => <p id={id} className="mt-1 text-xs text-slate-500">{children}</p>
+
 const Galat = ({ id, children }) => children ? <p id={id} role="alert" className="mt-1 text-xs text-red-600">{children}</p> : null
 
 export function Login() {
@@ -101,7 +103,8 @@ export function Login() {
             <Peran nilai={peran} ubah={setPeran} />
             <div>
               <label htmlFor="email" className="mb-1 block text-sm font-medium">Email atau username</label>
-              <input id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input" autoComplete="username" aria-describedby="g-email" />
+              <input id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input" autoComplete="username" placeholder="budi.santoso@gmail.com" aria-describedby="h-email g-email" />
+              <Petunjuk id="h-email">Contoh: budi.santoso@gmail.com. Gunakan email yang kamu pakai saat mendaftar.</Petunjuk>
               <Galat id="g-email">{galat.email}</Galat>
             </div>
             <div>
@@ -131,7 +134,7 @@ export function Daftar() {
     e.preventDefault()
     const g = {}
     if (f.nama.trim().length < 2) g.nama = 'Isi nama lengkapmu.'
-    if (!/^\S+@\S+\.\S+$/.test(f.email.trim())) g.email = 'Isi email yang valid, misalnya nama@sekolah.id.'
+    if (!/^\S+@\S+\.\S+$/.test(f.email.trim())) g.email = 'Isi email yang valid, misalnya budi.santoso@gmail.com atau nama@sekolah.id.'
     if (f.sandi.length < 6) g.sandi = 'Kata sandi minimal 6 karakter.'
     if (f.ulang !== f.sandi) g.ulang = 'Konfirmasi kata sandi belum sama.'
     setGalat(g)
@@ -152,7 +155,8 @@ export function Daftar() {
             <Peran nilai={f.peran} ubah={set('peran')} />
             <div>
               <label htmlFor="nama" className="mb-1 block text-sm font-medium">Nama lengkap</label>
-              <input id="nama" value={f.nama} onChange={(e) => set('nama')(e.target.value)} className="input" autoComplete="name" />
+              <input id="nama" value={f.nama} onChange={(e) => set('nama')(e.target.value)} className="input" autoComplete="name" placeholder="Budi Santoso" aria-describedby="h-nama" />
+              <Petunjuk id="h-nama">Contoh: Budi Santoso. Tulis nama lengkapmu, bukan nama panggilan.</Petunjuk>
               <Galat>{galat.nama}</Galat>
             </div>
             {f.peran === 'siswa' && (
@@ -165,7 +169,8 @@ export function Daftar() {
             )}
             <div>
               <label htmlFor="email" className="mb-1 block text-sm font-medium">Email</label>
-              <input id="email" value={f.email} onChange={(e) => set('email')(e.target.value)} className="input" autoComplete="email" />
+              <input id="email" value={f.email} onChange={(e) => set('email')(e.target.value)} className="input" autoComplete="email" placeholder="budi.santoso@gmail.com" aria-describedby="h-email" />
+              <Petunjuk id="h-email">Contoh: budi.santoso@gmail.com. Boleh memakai Gmail atau email sekolah.</Petunjuk>
               <Galat>{galat.email}</Galat>
             </div>
             <div><Sandi id="sandi" nilai={f.sandi} ubah={set('sandi')} autoComplete="new-password" /><Galat>{galat.sandi}</Galat></div>
